@@ -239,6 +239,7 @@ textarea:focus{
 
 #lbl-custom-upload{
 	display:inline-block;
+	float:right;
 }
 
 #lbl-email{
@@ -263,7 +264,6 @@ textarea:focus{
 }
 
 #image-upload{
-	float:right;
 	width:80px;
 	height:80px;
 	background:#fff url("../img/icon-upload.svg") no-repeat center 75%;

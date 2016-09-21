@@ -121,7 +121,7 @@ class Form extends CI_Controller {
 		$email = $this->input->post('reg-email');
 		$password = $this->input->post('reg-password');
 		$passwordhash = do_hash($password); // SHA1
-		$profileImage = str_replace(' ', '_', $_FILES['userfile']['name']);
+		$profileImage = str_replace(' ', '_', $_FILES['userfile']['name'][0]); // [0] -> single image upload, only insert first image name of array in db
 
 		// check if email already exists in database
 		if($this->User_model->checkExistence($email))
@@ -150,7 +150,6 @@ class Form extends CI_Controller {
 				//$data = array('upload_data' => $this->upload->data());
 				$this->load->view('view_success',$data);
 			}
-
 		}
 	}
 
@@ -161,22 +160,35 @@ class Form extends CI_Controller {
 			'upload_path' => "./public/img/profile_images",
 			'allowed_types' => "gif|jpg|png|jpeg",
 			'overwrite' => TRUE,
-			'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+			'max_size' => "2048000", // 2 MB(2048 Kb)
 			'max_height' => "2048",
 			'max_width' => "2048"
 			);
 		$this->load->library('upload', $config);
-		if($this->upload->do_upload())
-		{
-			return true; // create user in db
-		}
-		else
-		{
-			$data["colortype"] = "errormessage"; 			
-			$data["message"] = $this->upload->display_errors();
-			$this->load->view('view_form',$data);
-			return false;
-		}
+
+	    $files = $_FILES;
+	    $cpt = count($_FILES['userfile']['name']);
+
+	    for($i=0; $i<$cpt; $i++)
+	    {           
+	        $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+	        $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+	        $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+	        $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+	        $_FILES['userfile']['size']= $files['userfile']['size'][$i];    
+
+			if($this->upload->do_upload())
+			{
+				return true; // create user in db
+			}
+			else
+			{
+				$data["colortype"] = "errormessage"; 			
+				$data["message"] = $this->upload->display_errors();
+				$this->load->view('view_form',$data);
+				return false; // do not create new user
+			}
+	    }
 	}
 
     // ADD COMMENT TO USER PROFILE ----------------------------------------------------------------

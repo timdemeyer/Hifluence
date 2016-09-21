@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="<?=base_url()?>public/css/style.css">
 	<script src="<?=base_url()?>public/scripts/jquery-3.1.0.min.js"></script>
 	<script src="<?=base_url()?>public/scripts/script.js"></script>
+	
 </head>
 <body>
 
@@ -104,6 +105,7 @@
 
 
 
+
 	<div id="background">
 
 
@@ -114,7 +116,7 @@
 			<div class="formBorder">
 			<?php
 				if (isset($message)) {
-					echo '<div class="padder"><div class="'. $colortype .'"><p>'. $message .'</p></div></div>';
+					echo '<div class="padder"><div class="'. $colortype .'"><p>'. $message .'</p><p>'. error_get_last() .'</p></div></div>';
 				}
 			?>
 
@@ -155,12 +157,12 @@
 							
 							<div id="grouper">
 								<h4>Register</h4>
-
+								<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
 								<label id="filename-holder"><span class="span-profileimage">Profile Image</span></label>
 								<label for="reg-profileimage" id="lbl-custom-upload"><div class="inputfield" id="image-upload"></div></label>
 								<a href="" id="btn-webcam" class="inputfield"></a>
 								<span id="uploadNameHolder"></span>
-								<input type="file" name="userfile" id="reg-profileimage" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+								<input type="file" name="userfile[]" id="reg-profileimage" class="inputfile" data-multiple-caption="{count} files selected" multiple />
 							</div>
 
 							<label for="reg-email" id="lbl-email" class="form-label">Email</label>
@@ -197,6 +199,8 @@
 
 </div>
 
+
+<script src="<?=base_url()?>public/scripts/draganddrop.js"></script>
 
 </body>
 </html>

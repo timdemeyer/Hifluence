@@ -4,29 +4,11 @@
 $(function(){
 
 
-
-	// --------------------------------------------
-/*
-	checkDOMChange();
-
-	function checkDOMChange()
-	{
-	    // check for any new element being inserted here,
-	    // or a particular node being modified
-
-		$("#fb-button").click(function(e){
-			
-			console.log("clicked");
-			$(".fb_iframe_widget").trigger("click");
-
-		});
-
-	    // call the function again after 100 milliseconds
-	    setTimeout( checkDOMChange, 250 );
-	}
-*/
-
 	// CUSTOM FILE UPLOAD BUTTON - SHOW SELECTED FILENAME ------------------------------------
+
+	// DRAG & DROP
+
+
 
 	// ".inputfile" => original file input button
 	// "#filename-holder" => placeholder for file name 
