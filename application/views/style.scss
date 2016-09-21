@@ -1,0 +1,266 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+
+/* RESET CSS CROSBROWSER -------------------------------------------*/
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*--- SASS - MIXINS ----------------------------------------------------------*/
+
+@mixin box-sizing($mode) {
+  -webkit-box-sizing: $mode;
+     -moz-box-sizing: $mode;
+      -ms-box-sizing: $mode;
+          box-sizing: $mode;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin transform($transformation) {
+  -webkit-transform: $transformation;
+     -moz-transform: $transformation;
+      -ms-transform: $transformation;
+          transform: $transformation;
+}
+
+/*--- SASS VARIABLES ---------------------------------------------------------*/
+
+$radius: 6px;
+$formpadding:20px;
+
+/* COLORS */
+$orange:orange;
+$green:green;
+
+/*--- REUSABLE COMPONENTS ----------------------------------------------------*/
+
+.padder{padding:$formpadding; overflow:hidden;}
+.col-2{width:50%; float:left;}
+
+/*--- CUSTOM CSS -------------------------------------------------------------*/
+
+
+body{font-family: 'Open Sans', sans-serif;}
+
+#background{
+	width:100%; 
+	height:100%; 
+	position:relative;
+}
+
+#form{
+	width:80%;
+	max-width:800px;
+	margin:3% auto 0 auto;
+	border-radius:$radius;
+	border:solid 1px #999;
+	background:#eee;
+	overflow:hidden;
+}
+
+h2{
+	color:#fff; 
+	font-size:18px; 
+	text-transform:capitalize; 
+}
+
+#headerbar{
+	background:green; 
+	padding:$formpadding;
+}
+
+.inputfield{
+	background:#fff; 
+	border:solid 1px #999; 
+	border-radius:$radius; 
+	padding:1em; 
+	width:100%; 
+	@include box-sizing(border-box);
+	font-size:12px;
+}
+
+.inputfield-big{
+	@extend .inputfield;
+	font-size:16px;
+	margin-bottom:10px;
+}
+
+#image-upload{
+	float:right;
+	width:80px;
+	height:80px;
+}
+
+label{
+	color:#333; 
+	font-size:12px;
+	padding:1em 0 0.5em 0;
+	display:block;
+}
+
+.label-wrapper{
+	float:left;
+	margin-top:20px;
+}
+
+.checkbox{height:31px; float:left; margin-right:10px;}
+.lbl-small{display:inline-block;}
+
+.divider{
+	width:1px; 
+	float:left; 
+	height:100px; 
+	background:#999;
+}
+
+.or-figure{
+	width:20px;
+	height:20px; 
+	line-height:20px;
+	margin:-20px auto 20px auto;
+	padding:5px; 
+	text-align:center;
+	color:#444; 
+	background:#bbb; 
+	border: solid 1px #999;
+	@include border-radius(50%);
+}
+
+.btn{
+	display:inline-block; 
+	float:right; 
+	margin-top:20px; 
+	border:none;
+	border-radius:10px; 
+	background:$green; 
+	text-decoration:none; 
+	color:#fff; 
+	padding:0.5em 0.7em; 
+	font-family: 'Open Sans', sans-serif;
+	font-size:16px;
+	transition:background 0.3s; 
+	min-width:100px; 
+	text-align:center;
+}
+
+.btn-yellow{
+	background:$orange;
+}
+
+.btn:hover{
+	background:orange;
+	cursor:pointer;
+}
+
+/* video */
+#container{
+	width:640px; 
+	height:480px; 
+	background:#333; 
+	margin:50px auto;
+}
+
+.balloon{
+	display:inline-block;
+	position:absolute;
+	background:url("../img/hifluence.png") no-repeat;
+	background-position:center;
+	background-size:100%;
+	@include transform(translate(-50%));
+	@include border-radius(50%);
+	z-index:-1;
+}
+
+.b-fb{background-color:blue;}
+.b-hf{background-color:purple;}
+.b-twitter{background-color:green;}
+.b-asterix{background-color:orange;}
+.b-linkedin{background-color:lightblue;}
+
+button{
+	color:#fff;
+	padding:10px 12px 10px 44px;
+	border-radius:9px;
+	border:none;
+	background: blue url(../img/facebook.png) no-repeat;
+	background-position:0% 50%;
+	background-size:contain;
+	margin-bottom: 20px;
+}
+
+.seperator-vertical{
+	height:1px;
+	width:100%;
+	background:#999;
+	margin-bottom:20px;
+}
+
+.button span{}
+
+.errormessage{color:red; padding:1em; border:dashed 1px red; background:rgba(255,255,255,.5); font-size:13px;}
+
+/*--- RESPONSIVE LAYOUT ----------------------------------------------------*/
+
+@media only screen and (max-width:1024px) {
+	#form{width:90%;}
+	.col-2{width:100%; float:none;}
+}
+
+/*--------------------------------------------------------------------------*/
+
+/* temp css */
+ol{list-style-type:decimal; line-height:2em;}
+#container{display:none;}
+#temp-email{clear:both;}
+/*--------------------------------------------------------------------------*/
