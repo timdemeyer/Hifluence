@@ -21,9 +21,15 @@ class Admin extends CI_Controller {
 
     public function index()
     {
-    	$username = "Tim"; // GET FROM SESSION !!!
-    	$data['userdata'] = $this->User_model->read_user_information($username);
-    	$data['comments'] = $this->User_model->getComments(); // add user id
+    	$data="";
+    	if (isset($this->session->userdata['logged_in'])) 
+    	{
+	    	$username = $_SESSION['logged_in']['username'];    		
+			$data['userdata'] = $this->User_model->read_user_information($username);
+	    	$userid = $data['userdata'][0]->PK_UserId;
+	    	$data['usertags'] = $this->User_model->getUserTags($userid);
+	    	$data['comments'] = $this->User_model->getComments(); // add user id    	
+    	}
 		$this->load->view('view_admin',$data);
     }
 

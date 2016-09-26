@@ -12,7 +12,7 @@
 
 	<script>
 	// AJAX JSON REQUEST FOR TAGS ------------------------------------------------
-
+	
 		$.ajax({
 		  type:'GET',
 		  url: "http://www.timdemeyer.be/hifluence/Form/getjsondata",
@@ -23,7 +23,7 @@
 			var jsonstring = result[0]['Json'];
 			var obj = jQuery.parseJSON( jsonstring );
 			console.log(obj);
-
+/*
 			var innerhtml = "";
 			$.each(obj, function(key,value){
 				//console.log(key + ": " + value);
@@ -31,8 +31,10 @@
 			});
 			// fill dropdown with json tags
 			$("#select-tags").html(innerhtml);
+*/
 		  }
 		});		
+	
 	// --------------------------------------------------------------------------	
 	</script>
 
@@ -54,27 +56,33 @@
 
 				<div class="padder">
 
-					<p>Select a tag to attach to your profile.</p>
+					<p>Select some tags to attach to your profile:</p>
 
-					<?php echo form_open('Form/addTag'); ?>
+					<?php echo form_open('Form/addUserTags'); ?>
 
+<!--
+JSON
 						<select id="select-tags" name="selectedtag">
 						<option>Loading tags...</option>	
 						</select>
+-->
 
-						<input type="hidden" name="hid_email" value="<?=$email;?>" >
+						<!-- uit db halen als json append with jquery ? -->
+						<ul class="taglist">
+
+							<?php foreach($taglist->result() as $row):?>
+								<li><label><input type="checkbox" name="colors[]" value=<?=$row->PK_TagId;?>><?= $row->Tagname;?></label></li>
+							<?php endforeach;?>     
+						</ul>
+
+						<input type="hidden" name="hid_userid" value="<?=$userid;?>" >
 						<input type="submit" class="btn float-l" >
-					
 					</form>
-
 				</div>
-
 			</div>
 
 		</section>
 	</div>
-
-
 
 
 

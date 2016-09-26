@@ -13,7 +13,9 @@ Class User_model extends CI_Model
 
 	function createUser($data)
 	{
-		return $this->db->insert('tbl_users', $data);
+		$this->db->insert('tbl_users', $data);
+		$insert_id = $this->db->insert_id();
+	    return  $insert_id;
 	}
 
 	// ---------------------------------------------------------------------------------------
@@ -46,7 +48,6 @@ Class User_model extends CI_Model
 		} else {
 		return false;
 		}
-		
 	}
 
 	// ---------------------------------------------------------------------------------------
@@ -67,7 +68,7 @@ Class User_model extends CI_Model
 			return false;
 		}
 	}
-	
+
 	// ---------------------------------------------------------------------------------------
 
 	function getComments() // add user id
@@ -91,9 +92,28 @@ Class User_model extends CI_Model
 
 	// ---------------------------------------------------------------------------------------
 
-	function addTag($tag,$email)
+	function getAvailableTags()
 	{
-		$this->db->query("UPDATE `tbl_users` SET `Tag`='" . $tag . "'WHERE `Email` = '". $email ."'");
+		return $this->db->get('tbl_tags');
+	}
+
+	// ---------------------------------------------------------------------------------------
+
+	function addUserTags($arrTags,$userid)
+	{
+	    $N = count($arrTags);
+
+	    for($i=0; $i < $N; $i++) // insert selected courses and link to a specific student
+	    {
+	    	$this->db->query("INSERT INTO `tbl_usertags`(`FK_UserId`, `FK_TagId`) VALUES ('".$userid."','".$arrTags[$i]."')");
+	    }
+	}
+
+	// ---------------------------------------------------------------------------------------
+	
+	function getUserTags($userid)
+	{
+		return $this->db->query("SELECT `Tagname` FROM `tbl_tags` JOIN `tbl_usertags` ON tbl_tags.PK_TagId=tbl_usertags.FK_TagId WHERE `FK_UserId` ='" . $userid . "'");
 	}
 
 	// ---------------------------------------------------------------------------------------

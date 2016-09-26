@@ -65,9 +65,15 @@ $(function(){
 		
 	}
 
-	// Set div to parent height --------------------------------------------------------------
+	// Set vertical devider div to parent height ---------------------------------------------
 
 	$(".col-mid").height($(".col-2").height());
+
+	// Mark labels with checkbox:selected
+
+	$(".taglist input").click(function(e){		
+		$(this).parent().toggleClass("checked");
+	});
 
 	// START WEBCAM WHEN BUTTON IS TRIGGERED -------------------------------------------------
 

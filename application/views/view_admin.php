@@ -42,8 +42,12 @@
             <?php 
               echo '<ul><li>Name: ' . $userdata[0]->Username . '</li>';
               echo '<li>Email: ' . $userdata[0]->Email . '</li>';
-              echo '<li>Tags: ' . $userdata[0]->Tag . '<li></ul>';
             ?>
+            <li>Tags:
+              <?php foreach($usertags->result() as $row):?>
+                <?php echo $row->Tagname . ", ";?>
+              <?php endforeach;?>
+            </li></ul>
 
           </div>        
         </div>

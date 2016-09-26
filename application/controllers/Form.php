@@ -69,9 +69,6 @@ class Form extends CI_Controller {
 				{
 					$this->session->set_userdata('remember_me', true);
 				}
-				else{
-					
-				}
     			$username = $this->input->post('username');
     			$result = $this->User_model->read_user_information($username);
     			if ($result != false) {
@@ -83,8 +80,10 @@ class Form extends CI_Controller {
 					// Add user data in session
     				$this->session->set_userdata('logged_in', $session_data);
     				$data['sessiondata'] = $session_data;
+					$data['userdata'] = $result;
+					$userid = $data['userdata'][0]->PK_UserId;
+    				$data['usertags'] = $this->User_model->getUserTags($userid);
     				$data['comments'] = $this->User_model->getComments(); // add user id
-    				$data['userdata'] = $result;
     				$this->load->view('view_admin',$data);
     			}
     		} 
@@ -101,10 +100,13 @@ class Form extends CI_Controller {
     public function logOut()
     {
 		// Removing session data
+		$this->session->sess_destroy();
+/*
 		$sess_array = array(
 		'username' => ''
 		);
 		$this->session->unset_userdata('logged_in', $sess_array);
+*/
 		$data['colortype'] = "successmessage";
 		$data['message'] = 'Successfully Logged out.';
 		$this->load->view('view_form', $data);    	
@@ -143,7 +145,8 @@ class Form extends CI_Controller {
 	            );
 
 			if($this->uploadImage()){
-				$this->User_model->createUser($data);		
+				$data["userid"] = $this->User_model->createUser($data);		
+				$data["taglist"] = $this->User_model->getAvailableTags();
 				$data["colortype"] = "successmessage";
 				$data["message"] = "Registration Successfully";
 				$data["email"] = $email;
@@ -223,16 +226,28 @@ class Form extends CI_Controller {
 	}
 
 	// ADD TAG TO PROFILE --------------------------------------------------------------------------
-
+/*
 	public function addTag()
 	{
 		$tag = $this->input->post('selectedtag');
 		$email = $this->input->post('hid_email');
+
 		$this->User_model->addTag($tag,$email);
 		$data["colortype"] = "successmessage";
 		$data["message"] = "Your tag has been succesfully added to your profile! You can now log in the form below.";
 		$this->load->view('view_form',$data);
 	}	
+*/
+	public function addUserTags()
+	{
+		$arrTags = $this->input->post('colors[]');
+		$userEmail = $this->input->post('hid_userid');
+
+		$this->User_model->addUserTags($arrTags,$userEmail);
+		$data["colortype"] = "successmessage";
+		$data["message"] = "Your tags have been succesfully added to your profile! You can now log in the form below.";
+		$this->load->view('view_form',$data);
+	}
 
 	// END -----------------------------------------------------------------------------------------
 

@@ -6,7 +6,8 @@ class Registertest extends CI_Controller {
 	public function index() // Register
     {
     	$data["message"] = "success";
-    	$data["email"] = "tim315859@hotmail.com";
+    	$data["userid"] = "28";
+    	$data["taglist"] = $this->User_model->getAvailableTags();
     	$this->load->view('view_success',$data);
     }
 

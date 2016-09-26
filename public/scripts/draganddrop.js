@@ -5,6 +5,18 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 */
 (function() {
 
+
+	// PASTE EVENT --------------------------------------------------------------
+
+		$("body").bind("input paste", function(e){
+			// detect paste
+			//$("#reg-profileimage").focus();
+			console.log(e.originalEvent.clipboardData.items[0]);
+		});
+
+
+	// DRAG AND DROP ------------------------------------------------------------
+
 	// getElementById
 	function $id(id) {
 		return document.getElementById(id);
@@ -58,11 +70,9 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 	function Init() {
 		var fileselect = $id("reg-profileimage");
 		var	filedrag = $id("lbl-custom-upload");
-		// var submitbutton = $id("submitbutton"); 
 		// file select
 
 		fileselect.addEventListener("change", FileSelectHandler, false);
-		// is XHR2 available?
 		
 		var xhr = new XMLHttpRequest();
 		if (xhr.upload) {
